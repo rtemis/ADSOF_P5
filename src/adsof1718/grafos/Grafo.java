@@ -4,15 +4,15 @@
 package adsof1718.grafos;
 
 import java.util.*;
+import java.util.stream.*;
 
 /**
  * @author leah_
  *
  */
-public abstract class Grafo<T> {
-	private T t;
+public abstract class Grafo <T> {
 	protected Map<Integer, Vertice<T>> vertices;
-	protected Map<Vertice<T>, Vertice<T>> arcos;
+	protected Map<Vertice<T>,Vertice<T>> arcos;
 	
 	/**
 	 * 
@@ -23,10 +23,9 @@ public abstract class Grafo<T> {
 	}
 	
 	public Vertice<T> addVertice(T datos){
-		Vertice v = new Vertice(vertices.size() + 1, datos);
-		vertices.put(vertices.size() + 1, v);
+		Vertice v = new Vertice(vertices.size(), datos);
+		vertices.put(vertices.size(), v);
 		return v;
-
 	}
 	
 	protected Vertice<T> addVertice(int id, T datos){
@@ -36,8 +35,8 @@ public abstract class Grafo<T> {
 	}
 	
 	public List<Vertice<T>> getVertices(){
-		
-		return vertices;
+		List<Vertice<T>> lista = ((Collection<Vertice<T>>) vertices).stream().collect(Collectors.toList());
+		return lista;
 	}
 	
 	public int getNumVertices() {
@@ -56,7 +55,7 @@ public abstract class Grafo<T> {
 	}
 	
 	public int getNumArcos() {
-		return arcos.size();		
+		return arcos.size();
 	}
 	
 	public abstract double getPesoDe(Vertice<T> v1, Vertice<T> v2);
@@ -65,7 +64,9 @@ public abstract class Grafo<T> {
 	 // (en grafo dirigido, v ha de ser origen de los arcos)
 	
 	public String toString() {		// los vértices del grafo han de presentarse ORDENADOS POR IDENTIFICADOR
-		
+		String x = "";		
+		x += ((Collection<Vertice<T>>) vertices).stream().toString();
+		return x;
 	}
 
 
