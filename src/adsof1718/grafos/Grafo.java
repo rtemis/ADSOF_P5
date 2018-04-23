@@ -10,6 +10,7 @@ import java.util.*;
  *
  */
 public abstract class Grafo<T> {
+	private T t;
 	protected Map<Integer, Vertice<T>> vertices;
 	
 	/**
@@ -21,6 +22,7 @@ public abstract class Grafo<T> {
 	
 	public Vertice<T> addVertice(T datos){
 		Vertice v = new Vertice(datos);
+		vertices.put(arg0, v);
 	}
 	
 	protected Vertice<T> addVertice(int id, T datos){
