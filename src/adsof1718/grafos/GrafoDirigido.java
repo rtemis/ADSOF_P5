@@ -3,32 +3,38 @@
  */
 package adsof1718.grafos;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author leah_
- *
  */
 public class GrafoDirigido<T> extends Grafo<T> {
 	
+	public GrafoDirigido(){
+		super();
+	}
 	
-
 	@Override
 	public void addArco(Vertice<T> v1, Vertice<T> v2, double peso) {
-		// TODO Auto-generated method stub
-		
+		if (super.existeArco(v1, v2))
+			return;
+		Map<Integer,Double> vMap2 = new TreeMap<>();
+		vMap2.put(v2.getId(), peso);
+		super.arcos.put(v1.getId(), vMap2);	
 	}
 
 	@Override
 	public double getPesoDe(Vertice<T> v1, Vertice<T> v2) {
-		// TODO Auto-generated method stub
-		return 0;
+		return super.arcos.get(v1.getId()).get(v2.getId()).doubleValue();
 	}
 
 	@Override
 	public List<Vertice<T>> getVecinosDe(Vertice<T> v) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Vertice<T>> list = new ArrayList<>();
+		for (Integer i : arcos.get(v.getId()).keySet()) {
+			list.add(vertices.get(i));
+		}
+		return list;
 	}
 	
 	/**

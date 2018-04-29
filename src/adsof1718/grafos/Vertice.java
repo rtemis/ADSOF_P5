@@ -39,7 +39,7 @@ public class Vertice<T> {
 	
 	@Override
 	public String toString() {
-		return  id + " : " + datos;
+		return  id + " : " + datos + "\n";
 	}
 
 }
