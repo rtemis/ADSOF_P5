@@ -20,11 +20,6 @@ public class GrafoNoDirigido<T> extends Grafo<T> {
 	
 	@Override
 	public void addArco(Vertice<T> v1, Vertice<T> v2, double peso) {
-		if (super.existeArco(v1, v2))
-			return;
-		if (super.existeArco(v2, v1))
-			return;
-		
 		Map<Integer,Double> vMap1 = new TreeMap<>();
 		vMap1.put(v2.getId(), peso);
 		Map<Integer,Double> vMap2 = new TreeMap<>();
