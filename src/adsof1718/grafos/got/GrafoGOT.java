@@ -36,24 +36,45 @@ public class GrafoGOT<T extends PersonajeGOT> extends GrafoNoDirigido<T>{
 	}
 	
 	public List<String> casas() {
-//		List list = vertices.values().stream().filter(v -> v.getDatos().getCasa() != null);
-//		return list;
+		List<String> list = new ArrayList<>();
+		vertices.values().stream().filter(v -> v.getDatos().getCasa() != null).forEach(v -> {
+			if (!list.contains(v.getDatos().getCasa()))
+				list.add(v.getDatos().getCasa());
+		});
+		return list;
 	}
 	
 	public List<String> miembrosCasa(String casa) {
-		
+		List<String> list = new ArrayList<>();
+		vertices.values().stream().filter(v -> v.getDatos().getCasa() == casa).forEach(v -> {
+			if (!list.contains(v.getDatos().getCasa()))
+				list.add(v.getDatos().getNombre());
+		});
+		return list;
 	}
 	
 	public Map<String, Integer> gradoPersonajes() {
-		
+		Map<String, Integer> map = new TreeMap<>(); 
+		vertices.values().stream().forEach(v -> {
+			map.put(v.getDatos().getNombre(), super.getVecinosDe(v).size());	
+		});
+		return map;
 	} 
 	
 	public Map<String, Integer> gradoPonderadoPersonajes() {
-		
+		Map<String, Integer> map = new TreeMap<>();
+		vertices.values().stream().forEach(v -> {
+			map.put(v.getDatos().getNombre(), super.arcos.get(v).values().stream().reduce(Double::sum).get().intValue());
+		});
+		return map;
 	} 
 	
 	public Map<String, Integer> personajesRelevantes() {
-		
+		Map<String, Integer> map = new TreeMap<>();
+		vertices.values().stream().forEach(v -> {
+			map.put(v.getDatos().getNombre(), arcos.get(v).values().stream().filter(a -> super.getPesoDe(v, getVecinosDe(v).stream())));
+		});
+		return map;
 	}
 
 
