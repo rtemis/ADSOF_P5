@@ -6,19 +6,40 @@ package adsof1718.grafos;
 import java.util.*;
 
 /**
- * @author leah_
+ * Clase GrafoDirigido extiende a Grafo
+ * <p>
+ * Esta clase hereda todos los metodos de la super clase pero la forma 
+ *  de manejar los datos es de forma dirigida. Eso quiere decir que 
+ *  los arcos son direccionales y no bidireccionales, y que si un arco
+ *  existe entre dos vertices, solo exite en una direccion. 
+ *  
+ * @author Leah Hadeed 		leah.hadeed@estudiante.uam.es
+ * @author Sara Gonzalez 	sara.gonzalezg01@estudiante.uam.es
  */
 public class GrafoDirigido<T> extends Grafo<T> {
 	
+	/**
+	 * Constructor heredado de la super clase
+	 */
 	public GrafoDirigido(){
 		super();
 	}
 	
 	@Override
+	/**
+	 * Anade un arco al grafo, comprobando primero si existe ya un arco
+	 *  entre el primer vertice y cualquier otro. En el caso de que si, 
+	 *  anade el arco directamente al mapa de vecinos del primer vertice.
+	 *  Si no, crea el mapa de vecinos y luego mete el arco.
+	 */
 	public void addArco(Vertice<T> v1, Vertice<T> v2, double peso) {
-		Map<Integer,Double> vMap2 = new TreeMap<>();
-		vMap2.put(v2.getId(), peso);
-		super.arcos.put(v1.getId(), vMap2);	
+		if (arcos.containsKey(v1.getId()))
+			arcos.get(v1.getId()).put(v2.getId(), peso);
+		else {
+			Map<Integer,Double> vMap2 = new TreeMap<>();
+			vMap2.put(v2.getId(), peso);
+			super.arcos.put(v1.getId(), vMap2);
+		}
 	}
 
 	@Override
@@ -27,6 +48,11 @@ public class GrafoDirigido<T> extends Grafo<T> {
 	}
 
 	@Override
+	/**
+	 * Este metodo coge los vecinos de un vertice de forma direccional,
+	 *  de tal manera de que si existe una instancia del id del vertice
+	 *  dado en otro mapa de vecinos, no tiene influencia sobre esta lista.
+	 */
 	public List<Vertice<T>> getVecinosDe(Vertice<T> v) {
 		List<Vertice<T>> list = new ArrayList<>();
 		for (Integer i : arcos.get(v.getId()).keySet()) {
@@ -35,9 +61,6 @@ public class GrafoDirigido<T> extends Grafo<T> {
 		return list;
 	}
 	
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Grafo<String> g = new GrafoDirigido<>();
 		System.out.println(g.getClass().getName() + "\n");

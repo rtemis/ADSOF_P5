@@ -4,8 +4,12 @@
 package adsof1718.grafos;
 
 /**
- * @author leah_
- *
+ * Clase vertice
+ * <p>
+ * Esta clase contiene los datos del vertice: id, y datos genericos.
+ * 
+ * @author Leah Hadeed 		leah.hadeed@estudiante.uam.es
+ * @author Sara Gonzalez	sara.gonzalezg01@estudiante.uam.es
  */
 public class Vertice<T> {
 	private final int id; // identificador del vértice dentro del grafo
